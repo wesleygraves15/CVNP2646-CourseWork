@@ -1,0 +1,49 @@
+{
+  "name": "wazuh-agent-with-clamav",
+  "description": "Verification checks for Linux servers running the Wazuh agent and ClamAV (per CCDC inject SVRA12T).",
+  "checks": [
+    {
+      "name": "Wazuh agent service",
+      "type": "service",
+      "service": "wazuh-agent"
+    },
+    {
+      "name": "Wazuh agent connectivity",
+      "type": "log_pattern",
+      "path": "/var/ossec/logs/ossec.log",
+      "must_contain": "Connected to the server",
+      "warn_if_contains": "Trying to connect"
+    },
+    {
+      "name": "ClamAV daemon service",
+      "type": "service",
+      "service": "clamav-daemon"
+    },
+    {
+      "name": "ClamAV freshclam service",
+      "type": "service",
+      "service": "clamav-freshclam"
+    },
+    {
+      "name": "ClamAV TCP socket",
+      "type": "port",
+      "port": 3310,
+      "protocol": "tcp"
+    },
+    {
+      "name": "ClamAV signatures",
+      "type": "signature_freshness",
+      "paths": [
+        "/var/lib/clamav/daily.cvd",
+        "/var/lib/clamav/daily.cld"
+      ],
+      "max_age_days": 7
+    },
+    {
+      "name": "ClamAV scheduled scan",
+      "type": "scheduled_task",
+      "timer_pattern": "clam",
+      "cron_pattern": "clamscan|clamdscan"
+    }
+  ]
+}

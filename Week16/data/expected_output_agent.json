@@ -1,0 +1,54 @@
+{
+  "host": "ecom",
+  "config": "wazuh-agent-with-clamav",
+  "timestamp": "2026-02-07T15:32:18+00:00",
+  "summary": {
+    "pass": 6,
+    "warn": 1,
+    "fail": 0
+  },
+  "checks": [
+    {
+      "name": "Wazuh agent service",
+      "type": "service",
+      "status": "pass",
+      "detail": "wazuh-agent is active"
+    },
+    {
+      "name": "Wazuh agent connectivity",
+      "type": "log_pattern",
+      "status": "pass",
+      "detail": "found expected pattern in log"
+    },
+    {
+      "name": "ClamAV daemon service",
+      "type": "service",
+      "status": "pass",
+      "detail": "clamav-daemon is active"
+    },
+    {
+      "name": "ClamAV freshclam service",
+      "type": "service",
+      "status": "pass",
+      "detail": "clamav-freshclam is active"
+    },
+    {
+      "name": "ClamAV TCP socket",
+      "type": "port",
+      "status": "pass",
+      "detail": "tcp port 3310 is listening"
+    },
+    {
+      "name": "ClamAV signatures",
+      "type": "signature_freshness",
+      "status": "warn",
+      "detail": "signatures are 9.2 days old (max 7)"
+    },
+    {
+      "name": "ClamAV scheduled scan",
+      "type": "scheduled_task",
+      "status": "pass",
+      "detail": "cron entry matching 'clamscan|clamdscan' found"
+    }
+  ]
+}

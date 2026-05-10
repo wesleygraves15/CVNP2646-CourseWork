@@ -1,0 +1,6 @@
+# endpoint_check.py uses only the Python standard library — no third-party
+# dependencies are required.
+#
+# Tested against Python 3.7+. To install Python on a fresh system:
+#   Ubuntu/Debian:  sudo apt-get install -y python3
+#   Fedora/RHEL:    sudo dnf install -y python3

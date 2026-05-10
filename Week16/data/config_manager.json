@@ -1,0 +1,54 @@
+{
+  "name": "wazuh-manager-with-clamav",
+  "description": "Verification checks for the Linux server running the Wazuh manager and ClamAV (per CCDC inject SVRA12T).",
+  "checks": [
+    {
+      "name": "Wazuh manager service",
+      "type": "service",
+      "service": "wazuh-manager"
+    },
+    {
+      "name": "Wazuh manager port 1514",
+      "type": "port",
+      "port": 1514,
+      "protocol": "udp"
+    },
+    {
+      "name": "Wazuh manager port 1515",
+      "type": "port",
+      "port": 1515,
+      "protocol": "tcp"
+    },
+    {
+      "name": "ClamAV daemon service",
+      "type": "service",
+      "service": "clamav-daemon"
+    },
+    {
+      "name": "ClamAV freshclam service",
+      "type": "service",
+      "service": "clamav-freshclam"
+    },
+    {
+      "name": "ClamAV TCP socket",
+      "type": "port",
+      "port": 3310,
+      "protocol": "tcp"
+    },
+    {
+      "name": "ClamAV signatures",
+      "type": "signature_freshness",
+      "paths": [
+        "/var/lib/clamav/daily.cvd",
+        "/var/lib/clamav/daily.cld"
+      ],
+      "max_age_days": 7
+    },
+    {
+      "name": "ClamAV scheduled scan",
+      "type": "scheduled_task",
+      "timer_pattern": "clam",
+      "cron_pattern": "clamscan|clamdscan"
+    }
+  ]
+}
